@@ -14,9 +14,12 @@ let isRect = false;
 function clearCanvas() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
-
-function toggleMode() {
-	isRect = !isRect;
+function saveDrawing() {
+	const data = canvas.toDataURL('image/png');
+	const a = document.createElement('a');
+	a.href = data;
+	a.download = 'drawing.png';
+	a.click();
 }
 
 const drawLine = (ctx, x1, y1, x2, y2) => {
@@ -57,7 +60,6 @@ canvas.addEventListener('mouseup', e => {
 input.addEventListener('change', e => {
 	lineWidth = e.target.value;
 	input.value = lineWidth;
-	console.log(lineWidth);
 });
 
 document.querySelectorAll('.color-picker').forEach(color => color.addEventListener('click', e => {
